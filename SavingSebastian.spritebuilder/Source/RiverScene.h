@@ -9,5 +9,7 @@
 #import "CCNode.h"
 
 @interface RiverScene : CCNode <CCPhysicsCollisionDelegate>
-
+{
+    BOOL isPaused;
+}
 @end

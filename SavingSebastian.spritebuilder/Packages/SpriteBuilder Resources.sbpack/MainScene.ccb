@@ -302,8 +302,8 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>166</real>
-							<real>174</real>
+							<real>192.87385559082031</real>
+							<real>182.95794677734375</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -720,26 +720,7 @@
 				<key>isExpanded</key>
 				<false/>
 				<key>keyframes</key>
-				<array>
-					<dict>
-						<key>easing</key>
-						<dict>
-							<key>type</key>
-							<integer>0</integer>
-						</dict>
-						<key>time</key>
-						<real>0.033333335071802139</real>
-						<key>type</key>
-						<integer>11</integer>
-						<key>value</key>
-						<array>
-							<string>ccbResources/Bear JBA01_12_1.wav</string>
-							<real>1</real>
-							<real>0.0</real>
-							<real>1</real>
-						</array>
-					</dict>
-				</array>
+				<array/>
 				<key>type</key>
 				<integer>10</integer>
 			</dict>

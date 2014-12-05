@@ -12,6 +12,7 @@
 
 - (void)didLoadFromCCB {
     self.physicsBody.collisionType = @"fish";
+    NSLog(@"Fish test");
 }
 
 @end
