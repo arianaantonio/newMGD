@@ -57,7 +57,7 @@
 	<key>publishResolution_ios_phonehd</key>
 	<true/>
 	<key>publishResolution_ios_tablet</key>
-	<false/>
+	<true/>
 	<key>publishResolution_ios_tablethd</key>
 	<false/>
 	<key>publishToZipFile</key>
@@ -86,6 +86,13 @@
 			<true/>
 			<key>previewFolderHidden</key>
 			<true/>
+			<key>trimSprites</key>
+			<true/>
+		</dict>
+		<key>ccbResources/background-ipad.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>4</integer>
 		</dict>
 		<key>ccbResources/fish_left.png</key>
 		<dict>

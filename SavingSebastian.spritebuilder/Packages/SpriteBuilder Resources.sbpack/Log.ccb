@@ -50,7 +50,7 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<true/>
+			<false/>
 			<key>allowsRotation</key>
 			<true/>
 			<key>bodyShape</key>
@@ -74,40 +74,58 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>0.0</real>
-					<real>0.0</real>
+					<real>7.6263999938964844</real>
+					<real>-0.15272808074951172</real>
 				</array>
 				<array>
-					<real>0.0</real>
-					<real>30</real>
+					<real>9.0385093688964844</real>
+					<real>28.499614715576172</real>
 				</array>
 				<array>
-					<real>10</real>
-					<real>30</real>
+					<real>8.5385093688964844</real>
+					<real>53.192974090576172</real>
 				</array>
 				<array>
-					<real>10</real>
-					<real>0.0</real>
+					<real>31.819759368896484</real>
+					<real>53.214458465576172</real>
+				</array>
+				<array>
+					<real>32.233821868896484</real>
+					<real>-0.50038433074951172</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>10</real>
-						<real>0.0</real>
+						<real>31.819759368896484</real>
+						<real>53.214458465576172</real>
 					</array>
 					<array>
-						<real>10</real>
-						<real>30</real>
+						<real>8.5385093688964844</real>
+						<real>53.192974090576172</real>
 					</array>
 					<array>
-						<real>0.0</real>
-						<real>30</real>
+						<real>9.0385093688964844</real>
+						<real>28.499614715576172</real>
+					</array>
+				</array>
+				<array>
+					<array>
+						<real>9.0385093688964844</real>
+						<real>28.499614715576172</real>
 					</array>
 					<array>
-						<real>0.0</real>
-						<real>0.0</real>
+						<real>7.6263999938964844</real>
+						<real>-0.15272808074951172</real>
+					</array>
+					<array>
+						<real>32.233821868896484</real>
+						<real>-0.50038433074951172</real>
+					</array>
+					<array>
+						<real>31.819759368896484</real>
+						<real>53.214458465576172</real>
 					</array>
 				</array>
 			</array>
@@ -143,8 +161,8 @@
 				<string>Point</string>
 				<key>value</key>
 				<array>
-					<real>0.5</real>
-					<real>0.5</real>
+					<real>0.61595052480697632</real>
+					<real>0.14863292872905731</real>
 				</array>
 			</dict>
 			<dict>

@@ -11,7 +11,7 @@
 @implementation Log
 
 - (void)didLoadFromCCB {
-    self.physicsBody.collisionType = @"log";
+    //self.physicsBody.collisionType = @"log";
 }
 
 @end

@@ -66,6 +66,9 @@
     OALSimpleAudio *dripAudio = [OALSimpleAudio sharedInstance];
     [dripAudio preloadEffect:@"WaterDrip.wav"];
     
+    OALSimpleAudio *thudAudio = [OALSimpleAudio sharedInstance];
+    [thudAudio preloadEffect:@"thud.mp3"];
+    
     [self setupCocos2dWithOptions:cocos2dSetup];
     
     return YES;

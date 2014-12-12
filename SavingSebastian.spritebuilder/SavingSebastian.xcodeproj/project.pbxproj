@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41154D5E1A3816300018A82B /* thud.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 41154D5D1A3816300018A82B /* thud.mp3 */; };
+		41154D611A3946780018A82B /* background-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 41154D601A3946780018A82B /* background-ipad.png */; };
+		41154D641A395C280018A82B /* CSPausibleTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 41154D631A395C280018A82B /* CSPausibleTimer.m */; };
 		415CE5A81A2C51600029636C /* WaterDrip.wav in Resources */ = {isa = PBXBuildFile; fileRef = 415CE5A71A2C51600029636C /* WaterDrip.wav */; };
 		415CE5AA1A2C516D0029636C /* BearRoar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 415CE5A91A2C516D0029636C /* BearRoar.wav */; };
 		415CE5AD1A2C55F20029636C /* Fish.m in Sources */ = {isa = PBXBuildFile; fileRef = 415CE5AC1A2C55F10029636C /* Fish.m */; };
@@ -143,6 +146,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		41154D5D1A3816300018A82B /* thud.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thud.mp3; sourceTree = "<group>"; };
+		41154D601A3946780018A82B /* background-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-ipad.png"; sourceTree = "<group>"; };
+		41154D621A395C280018A82B /* CSPausibleTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSPausibleTimer.h; sourceTree = "<group>"; };
+		41154D631A395C280018A82B /* CSPausibleTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSPausibleTimer.m; sourceTree = "<group>"; };
 		415CE5A71A2C51600029636C /* WaterDrip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WaterDrip.wav; sourceTree = "<group>"; };
 		415CE5A91A2C516D0029636C /* BearRoar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BearRoar.wav; sourceTree = "<group>"; };
 		415CE5AB1A2C55F10029636C /* Fish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fish.h; path = Source/Fish.h; sourceTree = "<group>"; };
@@ -450,7 +457,11 @@
 				B7378993180767190076A88C /* MainScene.m */,
 				415CE5B41A2C57A30029636C /* RiverScene.h */,
 				415CE5B51A2C57A30029636C /* RiverScene.m */,
+				41154D621A395C280018A82B /* CSPausibleTimer.h */,
+				41154D631A395C280018A82B /* CSPausibleTimer.m */,
 				415CE5A71A2C51600029636C /* WaterDrip.wav */,
+				41154D5D1A3816300018A82B /* thud.mp3 */,
+				41154D601A3946780018A82B /* background-ipad.png */,
 				415CE5B71A2C5C910029636C /* BearRoar.mp3 */,
 				415CE5A91A2C516D0029636C /* BearRoar.wav */,
 				D352B48019EC608A00829775 /* MetalShaders */,
@@ -727,6 +738,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				415CE5CF1A2C6B680029636C /* iPhone.png in Resources */,
+				41154D611A3946780018A82B /* background-ipad.png in Resources */,
 				415CE5CB1A2C6B680029636C /* iPad.png in Resources */,
 				415CE5CA1A2C6B680029636C /* iPad-old@2x.png in Resources */,
 				415CE5D21A2C6B680029636C /* Settings@2x.png in Resources */,
@@ -737,6 +749,7 @@
 				415CE5CE1A2C6B680029636C /* iPhone-old@2x.png in Resources */,
 				415CE5B81A2C5C910029636C /* BearRoar.mp3 in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
+				41154D5E1A3816300018A82B /* thud.mp3 in Resources */,
 				415CE5D11A2C6B680029636C /* Settings.png in Resources */,
 				415CE5CC1A2C6B680029636C /* iPad@2x.png in Resources */,
 				415CE5C91A2C6B680029636C /* iPad-old.png in Resources */,
@@ -822,6 +835,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41154D641A395C280018A82B /* CSPausibleTimer.m in Sources */,
 				415CE5B31A2C56180029636C /* Log.m in Sources */,
 				415CE5B01A2C56080029636C /* Bear.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
@@ -1217,7 +1231,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1250,7 +1264,7 @@
 				PRODUCT_NAME = SavingSebastian;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Bridging-Header.h";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
