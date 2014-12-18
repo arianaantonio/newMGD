@@ -7,12 +7,12 @@
 //
 
 #import "CCNode.h"
-#import "CSPausibleTimer.h"
 
 @interface RiverScene : CCNode <CCPhysicsCollisionDelegate>
 {
     BOOL isPaused;
     BOOL isDead;
+    BOOL logIsChild;
     NSTimer *myTimer;
     NSDate *startDate;
     NSString *finishedTime;
@@ -20,7 +20,6 @@
     int score;
     NSTimer *newTimer;
     NSDate *pauseStart, *previousFireDate;
-    CSPausibleTimer *pTimer;
     int first;
     
     

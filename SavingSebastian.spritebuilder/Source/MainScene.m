@@ -19,4 +19,16 @@
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     [audio playEffect:@"BearRoar.wav"];
 }
+//load instructions scene on click
+-(void)instructions {
+    NSLog(@"Clicked instructions");
+    CCScene *instructionsScene = [CCBReader loadAsScene:@"InstructionsScene"];
+    [[CCDirector sharedDirector] replaceScene:instructionsScene];
+}
+//load credits scene on click
+-(void)credits {
+    NSLog(@"Clicked credits");
+    CCScene *creditsScene = [CCBReader loadAsScene:@"CreditsScene"];
+    [[CCDirector sharedDirector] replaceScene:creditsScene];
+}
 @end

@@ -9,14 +9,15 @@
 /* Begin PBXBuildFile section */
 		41154D5E1A3816300018A82B /* thud.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 41154D5D1A3816300018A82B /* thud.mp3 */; };
 		41154D611A3946780018A82B /* background-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 41154D601A3946780018A82B /* background-ipad.png */; };
-		41154D641A395C280018A82B /* CSPausibleTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 41154D631A395C280018A82B /* CSPausibleTimer.m */; };
+		41154D731A3FF4030018A82B /* InstructionsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 41154D721A3FF4030018A82B /* InstructionsScene.m */; };
+		41154D771A3FF4190018A82B /* CreditsScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 41154D761A3FF4190018A82B /* CreditsScene.m */; };
+		41154D791A4001300018A82B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41154D781A4001300018A82B /* Images.xcassets */; };
 		415CE5A81A2C51600029636C /* WaterDrip.wav in Resources */ = {isa = PBXBuildFile; fileRef = 415CE5A71A2C51600029636C /* WaterDrip.wav */; };
 		415CE5AA1A2C516D0029636C /* BearRoar.wav in Resources */ = {isa = PBXBuildFile; fileRef = 415CE5A91A2C516D0029636C /* BearRoar.wav */; };
 		415CE5AD1A2C55F20029636C /* Fish.m in Sources */ = {isa = PBXBuildFile; fileRef = 415CE5AC1A2C55F10029636C /* Fish.m */; };
 		415CE5B01A2C56080029636C /* Bear.m in Sources */ = {isa = PBXBuildFile; fileRef = 415CE5AF1A2C56080029636C /* Bear.m */; };
 		415CE5B31A2C56180029636C /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 415CE5B21A2C56180029636C /* Log.m */; };
 		415CE5B61A2C57A30029636C /* RiverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 415CE5B51A2C57A30029636C /* RiverScene.m */; };
-		415CE5B81A2C5C910029636C /* BearRoar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 415CE5B71A2C5C910029636C /* BearRoar.mp3 */; };
 		415CE5C91A2C6B680029636C /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = 415CE5BF1A2C6B680029636C /* iPad-old.png */; };
 		415CE5CA1A2C6B680029636C /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 415CE5C01A2C6B680029636C /* iPad-old@2x.png */; };
 		415CE5CB1A2C6B680029636C /* iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 415CE5C11A2C6B680029636C /* iPad.png */; };
@@ -148,8 +149,11 @@
 /* Begin PBXFileReference section */
 		41154D5D1A3816300018A82B /* thud.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = thud.mp3; sourceTree = "<group>"; };
 		41154D601A3946780018A82B /* background-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background-ipad.png"; sourceTree = "<group>"; };
-		41154D621A395C280018A82B /* CSPausibleTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSPausibleTimer.h; sourceTree = "<group>"; };
-		41154D631A395C280018A82B /* CSPausibleTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSPausibleTimer.m; sourceTree = "<group>"; };
+		41154D711A3FF4030018A82B /* InstructionsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsScene.h; sourceTree = "<group>"; };
+		41154D721A3FF4030018A82B /* InstructionsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsScene.m; sourceTree = "<group>"; };
+		41154D751A3FF4190018A82B /* CreditsScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditsScene.h; sourceTree = "<group>"; };
+		41154D761A3FF4190018A82B /* CreditsScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreditsScene.m; sourceTree = "<group>"; };
+		41154D781A4001300018A82B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "SavingSebastian iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		415CE5A71A2C51600029636C /* WaterDrip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = WaterDrip.wav; sourceTree = "<group>"; };
 		415CE5A91A2C516D0029636C /* BearRoar.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BearRoar.wav; sourceTree = "<group>"; };
 		415CE5AB1A2C55F10029636C /* Fish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fish.h; path = Source/Fish.h; sourceTree = "<group>"; };
@@ -160,7 +164,6 @@
 		415CE5B21A2C56180029636C /* Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = Source/Log.m; sourceTree = "<group>"; };
 		415CE5B41A2C57A30029636C /* RiverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RiverScene.h; path = Source/RiverScene.h; sourceTree = "<group>"; };
 		415CE5B51A2C57A30029636C /* RiverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RiverScene.m; path = Source/RiverScene.m; sourceTree = "<group>"; };
-		415CE5B71A2C5C910029636C /* BearRoar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BearRoar.mp3; sourceTree = "<group>"; };
 		415CE5BF1A2C6B680029636C /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad-old.png"; sourceTree = "<group>"; };
 		415CE5C01A2C6B680029636C /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad-old@2x.png"; sourceTree = "<group>"; };
 		415CE5C11A2C6B680029636C /* iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPad.png; sourceTree = "<group>"; };
@@ -282,6 +285,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41154D7A1A40E1670018A82B /* Sound effects */ = {
+			isa = PBXGroup;
+			children = (
+				415CE5A71A2C51600029636C /* WaterDrip.wav */,
+				41154D5D1A3816300018A82B /* thud.mp3 */,
+				41154D601A3946780018A82B /* background-ipad.png */,
+				415CE5A91A2C516D0029636C /* BearRoar.wav */,
+			);
+			name = "Sound effects";
+			sourceTree = "<group>";
+		};
 		5B12100D197483EE004C1E1D /* res */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,13 +471,11 @@
 				B7378993180767190076A88C /* MainScene.m */,
 				415CE5B41A2C57A30029636C /* RiverScene.h */,
 				415CE5B51A2C57A30029636C /* RiverScene.m */,
-				41154D621A395C280018A82B /* CSPausibleTimer.h */,
-				41154D631A395C280018A82B /* CSPausibleTimer.m */,
-				415CE5A71A2C51600029636C /* WaterDrip.wav */,
-				41154D5D1A3816300018A82B /* thud.mp3 */,
-				41154D601A3946780018A82B /* background-ipad.png */,
-				415CE5B71A2C5C910029636C /* BearRoar.mp3 */,
-				415CE5A91A2C516D0029636C /* BearRoar.wav */,
+				41154D711A3FF4030018A82B /* InstructionsScene.h */,
+				41154D721A3FF4030018A82B /* InstructionsScene.m */,
+				41154D751A3FF4190018A82B /* CreditsScene.h */,
+				41154D761A3FF4190018A82B /* CreditsScene.m */,
+				41154D7A1A40E1670018A82B /* Sound effects */,
 				D352B48019EC608A00829775 /* MetalShaders */,
 			);
 			name = Source;
@@ -535,6 +547,7 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				41154D781A4001300018A82B /* Images.xcassets */,
 				7A40366119DDF8C2007B6E8F /* Platforms */,
 				5B12100D197483EE004C1E1D /* res */,
 				B73789911807667A0076A88C /* Icons */,
@@ -747,7 +760,7 @@
 				415CE5D01A2C6B680029636C /* iPhone@2x.png in Resources */,
 				415CE5A81A2C51600029636C /* WaterDrip.wav in Resources */,
 				415CE5CE1A2C6B680029636C /* iPhone-old@2x.png in Resources */,
-				415CE5B81A2C5C910029636C /* BearRoar.mp3 in Resources */,
+				41154D791A4001300018A82B /* Images.xcassets in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				41154D5E1A3816300018A82B /* thud.mp3 in Resources */,
 				415CE5D11A2C6B680029636C /* Settings.png in Resources */,
@@ -835,12 +848,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41154D641A395C280018A82B /* CSPausibleTimer.m in Sources */,
+				41154D731A3FF4030018A82B /* InstructionsScene.m in Sources */,
 				415CE5B31A2C56180029636C /* Log.m in Sources */,
 				415CE5B01A2C56080029636C /* Bear.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				7A046D8C19E8A20E004C4763 /* MainScene.m in Sources */,
 				5B121038197487F2004C1E1D /* AppDelegate.m in Sources */,
+				41154D771A3FF4190018A82B /* CreditsScene.m in Sources */,
 				415CE5B61A2C57A30029636C /* RiverScene.m in Sources */,
 				415CE5AD1A2C55F20029636C /* Fish.m in Sources */,
 			);
@@ -1204,6 +1218,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1240,6 +1256,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

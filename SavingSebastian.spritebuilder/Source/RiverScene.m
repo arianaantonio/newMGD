@@ -18,8 +18,12 @@ static const CGFloat logScrollSpeed = 90.f;
     CCSprite *_bear;
     CCSprite *_log;
     CCLabelTTF *_timerLabel;
+    CCLabelTTF *_highScoreLabel;
+    CCLabelTTF *_scoreLabel;
+    CCLabelTTF *_gameOverLabel;
     CCSprite *_poof;
-    CCNode *_leftBank;
+    CCSprite *_endScene;
+    CCButton *_replayButton;
 }
 - (void)didLoadFromCCB {
     self.userInteractionEnabled = TRUE;
@@ -28,6 +32,12 @@ static const CGFloat logScrollSpeed = 90.f;
     isDead = NO;
     score = 0;
     first = 0;
+    //remove sprites to add later when game ends
+    [self removeChild:_endScene];
+    [self removeChild:_scoreLabel];
+    [self removeChild:_gameOverLabel];
+    [self removeChild:_highScoreLabel];
+    [self removeChild:_replayButton];
 
     //setting collision delegate
     _physicsNode.collisionDelegate = self;
@@ -40,15 +50,14 @@ static const CGFloat logScrollSpeed = 90.f;
     //setting bear to level collision and telling it to fire when a collision occurs
     _bear.physicsBody.collisionType = @"level";
     _bear.physicsBody.sensor = TRUE;
-    
-    //_leftBank.physicsBody.collisionType = @"edge";
-    //_leftBank.physicsBody.sensor = TRUE;
-    
+
     //setting log to level collision and telling it to fire when a collision occurs
     _log = (CCSprite *)[CCBReader load:@"Log"];
     [_physicsNode addChild:_log];
     _log.physicsBody.collisionType = @"log";
     _log.physicsBody.sensor = TRUE;
+    [_log setScaleX:.3];
+    [_log setScaleY:.3];
     _log.position = ccp(200,420);
     //log range:120-250    arc4random_uniform(120) + 130
     
@@ -63,31 +72,8 @@ static const CGFloat logScrollSpeed = 90.f;
     [[[CCDirector sharedDirector] view] addGestureRecognizer:swipeRightGesture];
 
     startDate = [NSDate date];
-    [self countdownTimer];
     _poof = (CCSprite *)[CCBReader load:@"Poof"];
     
-}
-
--(void)countdownTimer{
-    
-    [myTimer fire];
-    myTimer = [NSTimer scheduledTimerWithTimeInterval:.01f target:self selector:@selector(updateCounter:) userInfo:nil repeats:YES];
-    [myTimer fire];
-}
-//setting the timer
-- (void)updateCounter:(NSTimer *)theTimer {
-
-    _timerLabel.string = [NSString stringWithFormat:@"%i", score];
-    timeInt++;
-    //NSLog(@"%i", timeInt);
-    
-    //after 500 milliseconds, generate a log with a random x position
-    if (timeInt == 500) {
-        CGFloat random = ((double)arc4random_uniform(120) + 130);
-        _log.position = ccp(random,400);
-        [_physicsNode addChild:_log];
-        timeInt = 0;
-    }
 }
 - (void)swipeLeft {
     NSLog(@"Left swipe");
@@ -140,12 +126,27 @@ static const CGFloat logScrollSpeed = 90.f;
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     [audio playEffect:@"BearRoar.wav"];
     isDead = YES;
+
     [myTimer invalidate];
+
+    //add end scene sprites
+    [self addChild:_endScene];
+    [self addChild:_scoreLabel];
+    [self addChild:_gameOverLabel];
+    [self addChild:_replayButton];
+    [_physicsNode removeChild:_bear];
+    [_physicsNode removeChild:_fish];
+    if ([_log isRunningInActiveScene]) {
+        [_physicsNode removeChild:_log];
+    }
     
     //stop fish animation
     CCAnimationManager* animationManager = _fish.userObject;
     [animationManager setPaused:YES];
     NSString *newScoreStr = [NSString stringWithFormat:@"%i", score];
+    
+    //show score
+    _scoreLabel.string = [NSString stringWithFormat:@"Score: %@", newScoreStr];
     
     //compare old score to new score
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -156,34 +157,36 @@ static const CGFloat logScrollSpeed = 90.f;
         //set a new high score in defaults
         NSLog(@"New high score!");
         [defaults setObject:newScoreStr forKey:@"highScore"];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"New high score!" message:[NSString stringWithFormat:@"You're dead. You finished with a score of %@. Please play again.", newScoreStr] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        _highScoreLabel.string = @"NEW HIGH SCORE!";
     } else if (oldInt > score) {
         //do nothing with defaults score
         NSLog(@"No new high score");
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Ouch!" message:[NSString stringWithFormat:@"You're dead. You finished with a score of %@. Please play again.", newScoreStr] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        _highScoreLabel.string = @"";
     } else {
         //set for first time
         [defaults setObject:newScoreStr forKey:@"highScore"];
         NSLog(@"First time");
     }
-    
+    [self addChild:_highScoreLabel];
     NSLog(@"Number: %i", score);
     return TRUE;
 }
-//when fish collides with bear
+//when fish collides with log
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero log:(CCNode *)log {
     
     NSLog(@"Log collision");
-    _fish.position = ccp(_fish.position.x, _log.position.y-100);
+    
+    //move the fish down 50 and create poof right above fish
+    _fish.position = ccp(_fish.position.x, _fish.position.y-50);
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     [audio playEffect:@"thud.mp3"];
     _poof.position = ccp(_fish.position.x, _fish.position.y+50);
  
     //add poof sprite if it doesn't already exists on node
     if (first == 0) {
-        [self addChild:_poof];
+        if (![_poof isRunningInActiveScene]) {
+            [self addChild:_poof];
+        }
         first++;
     } else {
         first = 0;
@@ -192,11 +195,33 @@ static const CGFloat logScrollSpeed = 90.f;
 }
 //when log collides with bear
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair log:(CCNode *)log level:(CCNode *)level {
-    [_physicsNode removeChild:_log];
+    
+    NSLog(@"Hit collision");
+    
+    //remove log
+    if ([_log isRunningInActiveScene]) {
+        [_physicsNode removeChild:_log];
+        score++;
+    }
     //increment score
-    score++;
     _timerLabel.string = [NSString stringWithFormat:@"%i", score];
     return TRUE;
+}
+- (void)ccPhysicsCollisionSeparate:(CCPhysicsCollisionPair *)pair log:(CCNode *)log level:(CCNode *)level {
+    NSLog(@"Hit separate");
+    
+    if (![_log isRunningInActiveScene]) {
+        
+        //randomly generate new log
+        CGFloat random = ((double)arc4random_uniform(120) + 130);
+        _log = (CCSprite *)[CCBReader load:@"Log"];
+        _log.position = ccp(random,400);
+        [_log setScaleX:.3];
+        [_log setScaleY:.3];
+        _log.physicsBody.collisionType = @"log";
+        _log.physicsBody.sensor = TRUE;
+        [_physicsNode addChild:_log];
+    }
 }
 //when fish and log uncollide
 - (void)ccPhysicsCollisionSeparate:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero log:(CCNode *)log {
@@ -217,16 +242,12 @@ static const CGFloat logScrollSpeed = 90.f;
     //NSLog(@"Time: %02lu", hundredths);
     if (hundredths > 30) {
         NSLog(@"Inside invalidate");
-        [self removeChild:_poof];
+        if ([_poof isRunningInActiveScene]) {
+            [self removeChild:_poof];
+        }
         [newTimer invalidate];
     }
 }
-/*
--(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero edge:(CCNode *)edge {
-    NSLog(@"Hit bank");
-    //_fish.position = ccp(_fish.position.x+50, _fish.position.y);
-    return TRUE;
-}*/
 //pause button hit
 -(void)pause {
     NSLog(@"Paused");
@@ -246,5 +267,10 @@ static const CGFloat logScrollSpeed = 90.f;
     //load the main River Scene when user clicks "Restart"
     CCScene *riverScene = [CCBReader loadAsScene:@"RiverScene"];
     [[CCDirector sharedDirector] replaceScene:riverScene];
+}
+//go back to main menu
+-(void)backToMenu {
+    CCScene *mainMenu = [CCBReader loadAsScene:@"MainScene"];
+    [[CCDirector sharedDirector] replaceScene:mainMenu];
 }
 @end
