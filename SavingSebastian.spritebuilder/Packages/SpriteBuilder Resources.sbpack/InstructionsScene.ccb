@@ -146,8 +146,6 @@
 						<array/>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -389,7 +387,7 @@
 						<key>value</key>
 						<array>
 							<real>190.50706481933594</real>
-							<real>281.01397705078125</real>
+							<real>237.81398010253906</real>
 							<integer>0</integer>
 							<integer>0</integer>
 							<integer>0</integer>
@@ -413,8 +411,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>2.0210576057434082</real>
-							<real>4.0177950859069824</real>
+							<real>2.0130255222320557</real>
+							<real>4.4133877754211426</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -431,6 +429,9 @@ out of the reach of the bear.
 Swipe left and right to avoid 
 logs coming down the river. 
 Get past the logs to earn points. 
+Eat burgers and every 5 eaten 
+will temporarily make Sebastian
+ invincible to logs.
 Keep Sebastian alive as long as possible!</string>
 							<false/>
 						</array>
@@ -567,6 +568,8 @@ Keep Sebastian alive as long as possible!</string>
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>

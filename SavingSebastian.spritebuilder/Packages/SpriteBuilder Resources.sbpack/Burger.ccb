@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>1</integer>
+	<integer>2</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -28,7 +28,24 @@
 	<key>gridspaceWidth</key>
 	<integer>64</integer>
 	<key>guides</key>
-	<array/>
+	<array>
+		<dict>
+			<key>orientation</key>
+			<integer>0</integer>
+			<key>position</key>
+			<real>160</real>
+			<key>type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>orientation</key>
+			<integer>0</integer>
+			<key>position</key>
+			<real>194</real>
+			<key>type</key>
+			<integer>0</integer>
+		</dict>
+	</array>
 	<key>joints</key>
 	<array/>
 	<key>jsControlled</key>
@@ -44,15 +61,15 @@
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
-		<string>_bear</string>
+		<string></string>
 		<key>memberVarAssignmentType</key>
 		<integer>1</integer>
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<true/>
+			<false/>
 			<key>allowsRotation</key>
-			<true/>
+			<false/>
 			<key>bodyShape</key>
 			<integer>0</integer>
 			<key>collisionCategories</key>
@@ -66,7 +83,7 @@
 			<key>density</key>
 			<real>1</real>
 			<key>dynamic</key>
-			<false/>
+			<true/>
 			<key>elasticity</key>
 			<real>0.30000001192092896</real>
 			<key>friction</key>
@@ -74,40 +91,40 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>-110.93359375</real>
-					<real>191.443359375</real>
+					<real>0.787109375</real>
+					<real>2.26953125</real>
 				</array>
 				<array>
-					<real>-106.390625</real>
-					<real>278.935546875</real>
+					<real>0.0</real>
+					<real>16</real>
 				</array>
 				<array>
-					<real>185.93359375</real>
-					<real>337.318359375</real>
+					<real>16</real>
+					<real>16</real>
 				</array>
 				<array>
-					<real>200.28721618652344</real>
-					<real>201.195556640625</real>
+					<real>15.2421875</real>
+					<real>2.314453125</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>200.28721618652344</real>
-						<real>201.195556640625</real>
+						<real>15.2421875</real>
+						<real>2.314453125</real>
 					</array>
 					<array>
-						<real>185.93359375</real>
-						<real>337.318359375</real>
+						<real>16</real>
+						<real>16</real>
 					</array>
 					<array>
-						<real>-106.390625</real>
-						<real>278.935546875</real>
+						<real>0.0</real>
+						<real>16</real>
 					</array>
 					<array>
-						<real>-110.93359375</real>
-						<real>191.443359375</real>
+						<real>0.787109375</real>
+						<real>2.26953125</real>
 					</array>
 				</array>
 			</array>
@@ -168,7 +185,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>ccbResources/bear_finished.png</string>
+					<string>ccbResources/burger.png</string>
 				</array>
 			</dict>
 			<dict>

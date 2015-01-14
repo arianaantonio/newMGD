@@ -21,6 +21,10 @@
     NSTimer *newTimer;
     NSDate *pauseStart, *previousFireDate;
     int first;
+    CGFloat logScrollSpeed;
+    int burgerCount;
+    int skipLogCount;
+    BOOL isPowerUp;
     
     
 }
