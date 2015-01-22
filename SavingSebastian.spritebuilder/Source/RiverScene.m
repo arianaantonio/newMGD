@@ -24,6 +24,8 @@ static const CGFloat burgerScrollSpeed = 50.f;
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_gameOverLabel;
     CCLabelTTF *_powerUpLabel;
+    CCLabelTTF *_initialsLabel;
+    CCTextField *_initials;
     CCSprite *_poof;
     CCSprite *_endScene;
     CCButton *_replayButton;
@@ -33,6 +35,8 @@ static const CGFloat burgerScrollSpeed = 50.f;
     CCSprite *_burger3;
     CCSprite *_burger4;
     CCSprite *_burger5;
+    CCNodeColor *_colorBox;
+    CCButton *_saveScoreButton;
 }
 - (void)didLoadFromCCB {
     self.userInteractionEnabled = TRUE;
@@ -58,6 +62,13 @@ static const CGFloat burgerScrollSpeed = 50.f;
     [self removeChild:_burger4];
     [self removeChild:_burger5];
     [self removeChild:_powerUpLabel];
+    [self removeChild:_initials];
+    [self removeChild:_initialsLabel];
+    [self removeChild:_colorBox];
+    [self removeChild:_saveScoreButton];
+    
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //[defaults setObject:@"0" forKey:@"highScore"];
     
     //setting collision delegate
     _physicsNode.collisionDelegate = self;
@@ -97,6 +108,14 @@ static const CGFloat burgerScrollSpeed = 50.f;
     startDate = [NSDate date];
     _poof = (CCSprite *)[CCBReader load:@"Poof"];
     
+    //check if user is logged in
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser) {
+        userId = currentUser.objectId;
+        usernameSaved = currentUser.username;
+    } else {
+
+    }
 }
 - (void)swipeLeft {
     //NSLog(@"Left swipe");
@@ -182,6 +201,21 @@ static const CGFloat burgerScrollSpeed = 50.f;
         NSLog(@"New high score!");
         [defaults setObject:newScoreStr forKey:@"highScore"];
         _highScoreLabel.string = @"NEW HIGH SCORE!";
+        [self addChild:_initialsLabel];
+        [self addChild:_initials];
+        [self addChild:_colorBox];
+        _initials.textField.backgroundColor = [UIColor greenColor];
+        _initials.textField.textColor = [UIColor whiteColor];
+        /*
+        [_saveScoreButton setTarget:self selector:@selector(saveScore:)];
+        [self addChild:_saveScoreButton];*/
+
+        NSNumber *scoreNum = [NSNumber numberWithInt:score];
+        PFObject *newScore = [PFObject objectWithClassName:@"Highscores"];
+        newScore[@"score"] = scoreNum;
+        newScore[@"username"] = usernameSaved;
+        newScore[@"userId"] = userId;
+        [newScore saveInBackground];
     } else if (oldInt > score) {
         //do nothing with defaults score
         NSLog(@"No new high score");
@@ -360,10 +394,49 @@ static const CGFloat burgerScrollSpeed = 50.f;
     //load the main River Scene when user clicks "Restart"
     CCScene *riverScene = [CCBReader loadAsScene:@"RiverScene"];
     [[CCDirector sharedDirector] replaceScene:riverScene];
+    
+    NSString *initialsEntered = [_initials string];
+    if (![initialsEntered isEqualToString:@""]) {
+        [self updateHighScore:initialsEntered score:score];
+    }
 }
 //go back to main menu
 -(void)backToMenu {
     CCScene *mainMenu = [CCBReader loadAsScene:@"MainScene"];
     [[CCDirector sharedDirector] replaceScene:mainMenu];
 }
+/*
+//save score
+-(void)saveScore:(id)sender {
+    NSString *initialsStr = [_initials string];
+    if (![initialsStr isEqualToString:@""]) {
+        [self updateHighScore:initialsStr score:score];
+    }
+}*/
+-(void)updateHighScore:(NSString *)user score:(int)highScore {
+    NSDate *date = [NSDate date];
+    NSDateFormatter *df = [[NSDateFormatter alloc]init];
+    [df setDateFormat:@"MM/dd/yyyy"];
+    NSString *dateCaptured = [df stringFromDate:date];
+    
+    sqlite3 *database;
+    NSString *dbPath = [[NSBundle mainBundle] pathForResource:@"Leaderboard" ofType:@"sqlite"];
+    
+    if(sqlite3_open([dbPath UTF8String], &database) == SQLITE_OK) {
+        const char *sqlStatement = "INSERT into scores (player, score, date) VALUES (?, ?, ?)";
+        
+        sqlite3_stmt *statement;
+        
+        if(sqlite3_prepare_v2(database, sqlStatement, -1, &statement, NULL) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [user UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_int(statement, 2, highScore);
+            sqlite3_bind_text(statement, 3, [dateCaptured UTF8String], -1, SQLITE_TRANSIENT);
+        }
+        if (sqlite3_step(statement) == SQLITE_DONE) {
+            sqlite3_finalize(statement);
+        }
+        sqlite3_close(database);
+    }
+}
+
 @end

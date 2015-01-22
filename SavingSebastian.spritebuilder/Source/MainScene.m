@@ -31,4 +31,16 @@
     CCScene *creditsScene = [CCBReader loadAsScene:@"CreditsScene"];
     [[CCDirector sharedDirector] replaceScene:creditsScene];
 }
+//load local leaderboard scene on click
+-(void)local_leaderboard {
+    NSLog(@"Clicked local leaderboards");
+    CCScene *leaderboardScene = [CCBReader loadAsScene:@"LocalLeaderboard"];
+    [[CCDirector sharedDirector] replaceScene:leaderboardScene];
+}
+//load global leaderboard scene on click
+-(void) global_leaderboard {
+    NSLog(@"Clicked global leaderboards");
+    CCScene *leaderboardScene = [CCBReader loadAsScene:@"GlobalLeaderboard"];
+    [[CCDirector sharedDirector] replaceScene:leaderboardScene];
+}
 @end

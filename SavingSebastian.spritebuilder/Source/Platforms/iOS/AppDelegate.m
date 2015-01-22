@@ -33,7 +33,7 @@
 
 #import "AppDelegate.h"
 #import "CCBuilderReader.h"
-
+#import <Parse/Parse.h>
 
 @implementation AppController
 
@@ -44,6 +44,10 @@
     configPath = [configPath stringByAppendingPathComponent:@"configCocos2d.plist"];
     
     NSMutableDictionary* cocos2dSetup = [NSMutableDictionary dictionaryWithContentsOfFile:configPath];
+    
+    [Parse setApplicationId:@"ySyNBeL9bpVfqBOZ7KzgTKBj6gngTj514Q05qVGj"
+                  clientKey:@"E1iMgdjZHWwBkECMjgxzK8sz6K3xZ1d0mOC9NTaz"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // Note: this needs to happen before configureCCFileUtils is called, because we need apportable to correctly setup the screen scale factor.
 #ifdef APPORTABLE

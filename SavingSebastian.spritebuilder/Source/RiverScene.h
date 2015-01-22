@@ -7,6 +7,8 @@
 //
 
 #import "CCNode.h"
+#import <sqlite3.h>
+#import <Parse/Parse.h> 
 
 @interface RiverScene : CCNode <CCPhysicsCollisionDelegate>
 {
@@ -25,9 +27,9 @@
     int burgerCount;
     int skipLogCount;
     BOOL isPowerUp;
-    
+    NSString *userId;
+    NSString *usernameSaved;
     
 }
-//@property (nonatomic, assign) NSInteger *timeInt;
 
 @end
