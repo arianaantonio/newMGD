@@ -74,12 +74,12 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>-110.93359375</real>
-					<real>191.443359375</real>
+					<real>-189.04296875</real>
+					<real>181.341796875</real>
 				</array>
 				<array>
-					<real>-106.390625</real>
-					<real>278.935546875</real>
+					<real>-179.478515625</real>
+					<real>298.896484375</real>
 				</array>
 				<array>
 					<real>185.93359375</real>
@@ -102,12 +102,12 @@
 						<real>337.318359375</real>
 					</array>
 					<array>
-						<real>-106.390625</real>
-						<real>278.935546875</real>
+						<real>-179.478515625</real>
+						<real>298.896484375</real>
 					</array>
 					<array>
-						<real>-110.93359375</real>
-						<real>191.443359375</real>
+						<real>-189.04296875</real>
+						<real>181.341796875</real>
 					</array>
 				</array>
 			</array>

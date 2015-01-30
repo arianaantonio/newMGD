@@ -25,6 +25,8 @@ static const CGFloat burgerScrollSpeed = 50.f;
     CCLabelTTF *_gameOverLabel;
     CCLabelTTF *_powerUpLabel;
     CCLabelTTF *_initialsLabel;
+    CCLabelTTF *_achievementLabel;
+    CCLabelTTF *_newAchievement;
     CCTextField *_initials;
     CCSprite *_poof;
     CCSprite *_endScene;
@@ -49,6 +51,9 @@ static const CGFloat burgerScrollSpeed = 50.f;
     burgerCount = 0;
     skipLogCount = 0;
     isPowerUp = NO;
+    totalLogsSkipped = 1;
+    totalBurgersEaten = 0;
+    totalTaps = 0;
     
     //remove sprites to add later when game ends
     [self removeChild:_endScene];
@@ -66,9 +71,8 @@ static const CGFloat burgerScrollSpeed = 50.f;
     [self removeChild:_initialsLabel];
     [self removeChild:_colorBox];
     [self removeChild:_saveScoreButton];
-    
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //[defaults setObject:@"0" forKey:@"highScore"];
+    [self removeChild:_achievementLabel];
+    [self removeChild:_newAchievement];
     
     //setting collision delegate
     _physicsNode.collisionDelegate = self;
@@ -76,7 +80,7 @@ static const CGFloat burgerScrollSpeed = 50.f;
     //setting fish to hero collision
     _fish.physicsBody.collisionType = @"hero";
     _fish.physicsBody.sensor = TRUE;
-    NSLog(@"Fish: %f", _fish.position.x);
+    //NSLog(@"Fish: %f", _fish.position.x);
     
     //setting bear to level collision and telling it to fire when a collision occurs
     _bear.physicsBody.collisionType = @"level";
@@ -113,8 +117,9 @@ static const CGFloat burgerScrollSpeed = 50.f;
     if (currentUser) {
         userId = currentUser.objectId;
         usernameSaved = currentUser.username;
+        [self getAchievements];
     } else {
-
+        NSLog(@"ID: %@", userId);
     }
 }
 - (void)swipeLeft {
@@ -136,6 +141,8 @@ static const CGFloat burgerScrollSpeed = 50.f;
     }
 }
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+    
+    totalTaps++;
     
     //get the location of the tap
     CGPoint tapLocation = [touch locationInView: [touch view]];
@@ -165,7 +172,7 @@ static const CGFloat burgerScrollSpeed = 50.f;
 }
 //detecting when a collision occurs between the fish and the bear or log
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero level:(CCNode *)level {
-    NSLog(@"You lost");
+    //NSLog(@"You lost");
     OALSimpleAudio *audio = [OALSimpleAudio sharedInstance];
     [audio playEffect:@"BearRoar.wav"];
     isDead = YES;
@@ -201,21 +208,24 @@ static const CGFloat burgerScrollSpeed = 50.f;
         NSLog(@"New high score!");
         [defaults setObject:newScoreStr forKey:@"highScore"];
         _highScoreLabel.string = @"NEW HIGH SCORE!";
-        [self addChild:_initialsLabel];
-        [self addChild:_initials];
-        [self addChild:_colorBox];
-        _initials.textField.backgroundColor = [UIColor greenColor];
-        _initials.textField.textColor = [UIColor whiteColor];
-        /*
-        [_saveScoreButton setTarget:self selector:@selector(saveScore:)];
-        [self addChild:_saveScoreButton];*/
-
-        NSNumber *scoreNum = [NSNumber numberWithInt:score];
-        PFObject *newScore = [PFObject objectWithClassName:@"Highscores"];
-        newScore[@"score"] = scoreNum;
-        newScore[@"username"] = usernameSaved;
-        newScore[@"userId"] = userId;
-        [newScore saveInBackground];
+        
+        //if not logged in, give option to enter initials
+        if (userId == nil) {
+            [self addChild:_initialsLabel];
+            [self addChild:_initials];
+            [self addChild:_colorBox];
+            _initials.textField.backgroundColor = [UIColor greenColor];
+            _initials.textField.textColor = [UIColor whiteColor];
+        }
+        //if logged in, save to global leaderboard
+        else {
+            NSNumber *scoreNum = [NSNumber numberWithInt:score];
+            PFObject *newScore = [PFObject objectWithClassName:@"Highscores"];
+            newScore[@"score"] = scoreNum;
+            newScore[@"username"] = usernameSaved;
+            newScore[@"userId"] = userId;
+            [newScore saveInBackground];
+        }
     } else if (oldInt > score) {
         //do nothing with defaults score
         NSLog(@"No new high score");
@@ -226,11 +236,108 @@ static const CGFloat burgerScrollSpeed = 50.f;
         NSLog(@"First time");
     }
     [self addChild:_highScoreLabel];
-    NSLog(@"Number: %i", score);
+    
+    //checking for achievements
+    PFQuery *query = [PFQuery queryWithClassName:@"Achievements"];
+    [query getObjectInBackgroundWithId:objectId block:^(PFObject *achievementUpdate, NSError *error) {
+
+        //NSLog(@"Objectid: %@", objectId);
+        NSNumber *zero = [NSNumber numberWithInt:0];
+        NSNumber *yes = [NSNumber numberWithBool:true];
+        
+        //if achievement, send to parse and display label
+        if (score >= 25 && [score25 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Reached 25 points achievement!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"score25"] = yes;
+        }
+        if (score >=50 && [score50 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Reached 50 points achievement!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"score50"] = yes;
+        }
+        if (score >= 100 && [score100 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Reached 100 points achievement!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"score100"] = yes;
+        }
+        if (score >= 150 && [score150 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Reached 150 points achievement!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"score150"] = yes;
+        }
+        if (totalBurgersEaten >=20 && [burgers20 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Ate 20 burgers achievement!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"burgers20"] = yes;
+        }
+        if (totalBurgersEaten >= 60 && [burgers60 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Ate 60 burgers achievement!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"burgers60"] = yes;
+        }
+        if (totalBurgersEaten >= 120 && [burgers120 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Ate 120 burgers achievement!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"burgers120"] = yes;
+        }
+        if (totalTaps >=500 && [taps500 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Tapped 500 times achievement!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"taps500"] = yes;
+        }
+        if (totalTaps >=1000 && [taps1000 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Tapped 1000 times achievement!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"taps1000"] = yes;
+        }
+        if (totalLogsSkipped > 0 && score >= 20 && [log_avoid20 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Hit no logs and scored 20 points!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"log_avoid20"] = yes;
+        }
+        if (totalLogsSkipped > 0 && score >=50 && [log_avoid50 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Hit no logs and scored 50 points!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"log_avoid50"] = yes;
+        }
+        if (totalLogsSkipped > 0 && score >= 100 && [log_avoid100 isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Hit no logs and scored 100 points!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"log_avoid100"] = yes;
+        }
+        if (score == 250 && [completedGame isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Completed the game!";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"completedGame"] = yes;
+        }
+        if (totalLogsSkipped > 0 && score == 0 && [beginnersLuck isEqualToNumber:zero]) {
+            _achievementLabel.string = @"Died with no points.";
+            [self addChild:_achievementLabel];
+            [self addChild:_newAchievement];
+            achievementUpdate[@"beginnerLuck"] = yes;
+        }
+        [achievementUpdate saveInBackground];
+    }];
     return TRUE;
 }
 //when fish collides with log
 -(BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair hero:(CCNode *)hero log:(CCNode *)log {
+    
+    totalLogsSkipped++;
     
     //react to collisions only when NOT in power up mode
     if (!isPowerUp) {
@@ -318,6 +425,7 @@ static const CGFloat burgerScrollSpeed = 50.f;
     //removie it from the screen and increment count
     [_physicsNode removeChild:_burger];
     burgerCount++;
+    totalBurgersEaten++;
     NSLog(@"Burgers eaten: %i", burgerCount);
     
     //add sprites based on num eaten
@@ -405,14 +513,6 @@ static const CGFloat burgerScrollSpeed = 50.f;
     CCScene *mainMenu = [CCBReader loadAsScene:@"MainScene"];
     [[CCDirector sharedDirector] replaceScene:mainMenu];
 }
-/*
-//save score
--(void)saveScore:(id)sender {
-    NSString *initialsStr = [_initials string];
-    if (![initialsStr isEqualToString:@""]) {
-        [self updateHighScore:initialsStr score:score];
-    }
-}*/
 -(void)updateHighScore:(NSString *)user score:(int)highScore {
     NSDate *date = [NSDate date];
     NSDateFormatter *df = [[NSDateFormatter alloc]init];
@@ -438,5 +538,32 @@ static const CGFloat burgerScrollSpeed = 50.f;
         sqlite3_close(database);
     }
 }
-
+//check for achievements to make sure we don't set the same achievement twice
+-(void)getAchievements {
+    PFQuery *query2 = [PFQuery queryWithClassName:@"Achievements"];
+    [query2 whereKey:@"userId" equalTo:userId];
+    [query2 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (!error) {
+            
+            for (PFObject *object in objects) {
+                objectId = object.objectId;
+                score25 = [object objectForKey:@"score25"];
+                score50 = [object objectForKey:@"score50"];
+                score100 = [object objectForKey:@"score100"];
+                score150 = [object objectForKey:@"score150"];
+                burgers20 = [object objectForKey:@"burgers20"];
+                burgers60 = [object objectForKey:@"burgers60"];
+                burgers120 = [object objectForKey:@"burgers120"];
+                log_avoid20 = [object objectForKey:@"log_avoid20"];
+                log_avoid50 = [object objectForKey:@"log_avoid50"];
+                log_avoid100 = [object objectForKey:@"log_avoid100"];
+                taps500 = [object objectForKey:@"taps500"];
+                taps1000 = [object objectForKey:@"taps1000"];
+                beginnersLuck = [object objectForKey:@"beginnerLuck"];
+                completedGame = [object objectForKey:@"completedGame"];
+            }
+        }
+    }];
+}
 @end
